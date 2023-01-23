@@ -1,0 +1,59 @@
+pico-8 cartridge // http://www.pico-8.com
+version 39
+__lua__
+--constantes v/f
+t=true
+f=false
+xp,yp=59,59 --coordonnees
+s=10 --taille du joueur
+sp=2 --vitesse
+
+function pyth(a, b)
+    local tmpa = a*a
+    local tmpb = b*b
+    return sqrt(a,b)
+end
+
+-- deplacements du joueur
+function moveplayer()
+    tmp = pyth(sp,sp)
+    if (btn(2) and btn(1)) then
+        yp-=tmp
+        xp+=tmp
+    elseif (btn(2) and btn(0)) then
+        yp-=tmp
+        xp-=tmp
+    elseif (btn(3) and btn(1)) then
+        yp+=tmp
+        xp+=tmp
+    elseif (btn(3) and btn(0)) then
+        yp+=tmp
+        xp-=tmp
+    elseif (btn(2)) then yp-=sp
+    elseif (btn(3)) then yp+=sp
+    elseif (btn(0)) then xp-=sp
+    elseif (btn(1)) then xp+=sp
+    end
+
+    if (xp<0) do xp=0 end
+    if (xp>127-s) do xp=127-s end
+    if (yp<0) do yp=0 end
+    if (yp>127-s) do yp=127-s end
+end
+
+function _update()
+   moveplayer()
+end
+
+function _draw()
+    rectfill(0, 0, 128, 128, 1)
+    rectfill(xp, yp, xp+s, yp+s, 8)
+end
+
+__gfx__
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00700700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00077000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00077000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00700700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
